@@ -121,7 +121,7 @@ namespace YAFC
                 }
                 else SetActivePage(element);
             }
-            else if (evt == ButtonEvent.MouseOver)
+                else if (evt == ButtonEvent.MouseOver)
                 ShowTooltip(gui, element, true, gui.lastRect);
         }
 

@@ -49,18 +49,32 @@ namespace YAFC.Blueprints
             using (var reader = new StreamReader(memory))
                 return reader.ReadToEnd();
         }
+        public static BlueprintString FromJson(string json)
+        {
+            return JsonSerializer.Deserialize<BlueprintString>(json);
+        }
+        public static BlueprintString FromBpString(string bpString)
+        {
+            if (bpString.StartsWith("0"))
+                bpString = bpString.Substring(1);
+            var sourceBytes = Convert.FromBase64String(bpString);
+            using var memory = new MemoryStream(sourceBytes);
+            memory.Seek(2, SeekOrigin.Begin);
+            using var decompress = new DeflateStream(memory, CompressionMode.Decompress);
+            return JsonSerializer.Deserialize<BlueprintString>(decompress, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
+        }
     }
     
     [Serializable]
     public class Blueprint
     {
-        public const int VERSION = 0x01000000;
+        public const long VERSION = 0x01000000;
 
         public string item { get; set; } = "blueprint";
         public string label { get; set; }
-        public List<BlueprintEntity> entities { get; } = new List<BlueprintEntity>();
-        public List<BlueprintIcon> icons { get; } = new List<BlueprintIcon>();
-        public int version { get; set; } = VERSION;
+        public List<BlueprintEntity> entities { get; set; } = new List<BlueprintEntity>();
+        public List<BlueprintIcon> icons { get; set; } = new List<BlueprintIcon>();
+        public long version { get; set; } = VERSION;
     }
 
     [Serializable]
@@ -106,8 +120,9 @@ namespace YAFC.Blueprints
         public string recipe { get; set; }
         [JsonPropertyName("control_behavior")] public BlueprintControlBehaviour controlBehavior { get; set; }
         public BlueprintConnection connections { get; set; }
-        [JsonPropertyName("request_filters")] public List<BlueprintRequestFilter> requestFilters { get; } = new List<BlueprintRequestFilter>();
+        [JsonPropertyName("request_filters")] public List<BlueprintRequestFilter> requestFilters { get; set;} = new List<BlueprintRequestFilter>();
         public Dictionary<string, int> items { get; set; }
+        public ushort? bar {get;set;}
 
         public void Connect(BlueprintEntity other, bool red = true, bool secondPort = false, bool targetSecond = false)
         {
@@ -145,8 +160,8 @@ namespace YAFC.Blueprints
     [Serializable]
     public class BlueprintConnectionPoint
     {
-        public List<BlueprintConnectionData> red { get; } = new List<BlueprintConnectionData>();
-        public List<BlueprintConnectionData> green { get; } = new List<BlueprintConnectionData>();
+        public List<BlueprintConnectionData> red { get; set; } = new List<BlueprintConnectionData>();
+        public List<BlueprintConnectionData> green { get; set; } = new List<BlueprintConnectionData>();
     }
 
     [Serializable]
@@ -166,7 +181,7 @@ namespace YAFC.Blueprints
     [Serializable]
     public class BlueprintControlBehaviour
     {
-        public List<BlueprintControlFilter> filters { get; } = new List<BlueprintControlFilter>();
+        public List<BlueprintControlFilter> filters { get; set; } = new List<BlueprintControlFilter>();
     }
 
     [Serializable]

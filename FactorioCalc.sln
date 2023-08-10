@@ -8,8 +8,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAFCmodel", "YAFCmodel\YAFC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAFCparser", "YAFCparser\YAFCparser.csproj", "{4B64D4DD-B6ED-457D-9000-EA0381585959}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineToolExample", "CommandLineToolExample\CommandLineToolExample.csproj", "{57E8CAE8-A3F8-4532-B32F-09347852479E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MallGenerator", "MallGenerator\MallGenerator.csproj", "{57E8CAE8-A3F8-4532-B32F-09347852479E}"
 EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

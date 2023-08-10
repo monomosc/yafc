@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using SDL2;
+using YAFC.Blueprints;
 using YAFC.Model;
 using YAFC.UI;
 
@@ -375,12 +377,17 @@ namespace YAFC
                         "It is possible for a recipe to be efficient but not useful - for example a recipe that produces something that is not useful.\n\n" +
                         "YAFC only estimates things that are required for science recipes. So buildings, belts, weapons, fuel - are not shown in estimations.", "Ok");
                 }
+                if (gui.BuildButton("Export to Mall BP")) {
+                    var bp = MallGenerator.GenerateMallBlueprintForRecipe(current.name);
+                    SDL.SDL_SetClipboardText(bp.ToBpString());
+                }
                 if (gui.BuildCheckBox("Current milestones info", atCurrentMilestones, out atCurrentMilestones, allocator:RectAllocator.RightRow))
                 {
                     var item = current;
                     current = null;
                     SetItem(item);
                 }
+                
             }
         }
 

@@ -2,6 +2,7 @@
 using YAFC.Parser;
 using YAFC.Model;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 internal class Program
 {
@@ -19,11 +20,10 @@ internal class Program
             errorCollector,
             "en");
 
-        string interestingRecipe = "creature-chamber-mk02";
+        string interestingRecipe = "nacelle-mk02";
 
-        var localBp = MallGenerator.GenerateMallBlueprintForRecipe(interestingRecipe);
+        Console.WriteLine(MallGenerator.GenerateMallBlueprintForRecipe(interestingRecipe).ToBpString());
+
         
-        Console.WriteLine(JsonSerializer.Serialize(localBp, new JsonSerializerOptions { WriteIndented = true }));
-        Console.WriteLine(localBp.ToBpString());
     }
 }

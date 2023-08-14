@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using System.Linq;
 using YAFC.Model;
 
@@ -6,13 +7,13 @@ namespace YAFC.Blueprints;
 
 public static class MallGenerator
 {
-    static string somerandomprodstring = "0eNqVk9FOwzAMRf8lzw1au3WF/gpCKGu9YpE4IXEnJrR/x+22bkAH4imKcn3ujZ18qI3tIUQkVvWHSmSCZq+7iO2wf1f1Q6b2qq4OmcLGU1L1o8iwI2MHAe8DqFohg1OZIuOGnenZO8PQ6q1p2Me9dq+LXA0IakGY+eEpU0CMjHAkjpv9M/VuA1EEf7EyFXySck+nmOVdOQZd3pXiE6HBMVgHnl8gOmN1sIb4nOSHYzE5JjbNq0ZKEFlOfjjlJ6dydGpRvI6nxQx2OWGt7zAxNrp5gcQ6mJRwBzpEv8N2zmfxxWdjhFbOOKxuOUR462X9Db0+NWsUPm/Rivo4j/OgJjhYuWYUuENC6nQb0VohN74fnk65GKKdqopvVZ6GUBibHvlSUiyua5ZX/QcYp8VwEedfxJc7A3VIoHu6JkuYp5lOlf8e8fr7iNcz2PUFK8/MamtcuN3ySpAzkGqCOGixd3rqd/AWbicccfKZxg9YX33mTO1klsd3eZ+vqoeiqlarMi/yw+ETXMJOLg==";
+    static string somerandomprodstring = "0eNqVk+tuqzAQhN/Fv3EVSAgtr3IUVY7Z0lV9O75EjSrevWtIIW1Jq/4Cy7PfDB7zxo4qgfNoImvfWDDC8Wh577HL61fWPhTszNpmKBhKawJr/5EMeyNUFsSzA9YyjKBZwYzQeSVStFpE6PiTkNH6M9cvm4plhOmAmOVwKBiYiBFhIo6L86NJ+gieBL+xCuZsoHFrLjHru3oMur2rsw/lCXnHedslGfFEdK7pXRG0Gobim2U1W4Yo5AtHE8BH2vlmVV6s6tGqQw9y2q1WsNsZq2yPIaLk8hlC5E6EgCfglPCE3ZrP5pPPURCtXnHY3XLw8D/R8yf0fkRfhI9PqEg9FfLR1AwHRZ/pCa7RoOl551EpIkub8t2pNznaZar6MmVNDoVeJozLSLW5ntlenT+A4k5R64u4/CRevhlMjwZ4MtdkCnNYOan6zxXvv1a8X8HuZ6yGDpPm81E5q+A2vCH4Cq5ZUmqhFFdCu9sNjpDDdONpZPmbC3aiLqd7eV/umoeqaXa7uqzKYXgHRBRPTQ==";
 
     public static BlueprintString GenerateMallBlueprintForRecipe(string interestingRecipe)
     {
         var allRecipes = Database.recipes.all
            .Where(r => r.crafters.Any(x => x.name.Contains("automated-factory")))
-           .Where(r => r.mainProduct != null && r.mainProduct is Item resultItem && resultItem.placeResult != null)
+           .Where(r => r.mainProduct != null && r.mainProduct is Item resultItem)
            .ToDictionary(r => r.name, recipe =>
            {
                var ingredients = recipe.ingredients;
@@ -30,6 +31,13 @@ public static class MallGenerator
            });
         var localBpParsed = BlueprintString.FromBpString(somerandomprodstring);
         localBpParsed.blueprint.entities[0].recipe = interestingRecipe;
+        var fac = localBpParsed.blueprint.entities[0];
+        fac.items = new Dictionary<string, int>();
+        var prodMod = Database.items.all.First(i => i.name == "productivity-module");
+        if (Database.recipes.all.First(r => r.name == interestingRecipe).CanAcceptModule(prodMod)) {
+            var facData = Database.entities.all.First(e => e.name == fac.name) as EntityWithModules;
+            fac.items.Add(prodMod.name, facData.moduleSlots);
+        }
         localBpParsed.blueprint.label = interestingRecipe;
         var requester = localBpParsed.blueprint.entities.Where(e => e.name == "logistic-chest-requester").First();
         requester.requestFilters.Clear();

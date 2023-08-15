@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using YAFC.Model;
@@ -18,12 +19,12 @@ public class ItemTrainStationGenerator {
         Items = items;
     }
 
-    public Blueprint GenerateTrainStation() {
+    public Blueprint GenerateTrainStation(string requesterFor) {
         var file = File.ReadAllBytes("train_station_blueprint_base.json");
         var bps =  JsonSerializer.Deserialize<BlueprintString>(file);
         var bp = bps.blueprint;
         var request_combinator = bp.entities.Where(e => e.name == "constant-combinator").Single();
-
+        var station = bp.entities.Where(e => e.name == "logistic-train-stop").Single();
         var loaders = bp.entities.Where(e => e.name.Contains("loader")).ToList();
         //loaders 0,3 are request #1, loaders 1,2 are request #2
 
@@ -53,6 +54,12 @@ public class ItemTrainStationGenerator {
                 throw new InvalidOperationException("Unknown Origin Blueprint State");
             }
         }
+        var stationName = new StringBuilder();
+        foreach (var item in Items) {
+            stationName.Append($"[item={item.name}]");
+        }
+        stationName.Append($" Requester for {requesterFor}");
+        station.station = stationName.ToString();
         //clear source items
         Project.current.preferences.sourceResources.Clear();
 

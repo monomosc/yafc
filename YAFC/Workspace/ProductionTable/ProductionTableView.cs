@@ -1178,7 +1178,7 @@ namespace YAFC
                                 throw new NotImplementedException($"You can only create train stations for Items, not fluids or other things (was type {item.GetType()})");
                             }
                         }
-                        var station = new ItemTrainStationGenerator(listOfActualItems).GenerateTrainStation();
+                        var station = new ItemTrainStationGenerator(listOfActualItems).GenerateTrainStation(this.projectPage.name);
                         var bpString = new BlueprintString { blueprint = station};
                         SDL.SDL_SetClipboardText(bpString.ToBpString());
                     }

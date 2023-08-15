@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Google.OrTools.Sat;
 using YAFC.Model;
 using YAFC.UI;
 
@@ -136,6 +137,8 @@ namespace YAFC.Blueprints
         public Dictionary<string, int> items { get; set; }
         public ushort? bar { get; set; }
         public List<Filter> filters {get;set;}
+        public string type { get; set; }
+        public string station { get; set; }
 
         public void Connect(BlueprintEntity other, bool red = true, bool secondPort = false, bool targetSecond = false)
         {

@@ -3,6 +3,7 @@ using YAFC.Parser;
 using YAFC.Model;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using YAFC.Blueprints.Generators;
 
 internal class Program
 {
@@ -20,9 +21,12 @@ internal class Program
             errorCollector,
             "en");
 
-        string interestingRecipe = "nacelle-mk02";
-
-        Console.WriteLine(MallGenerator.GenerateMallBlueprintForRecipe(interestingRecipe).ToBpString());
+        var page = fullProject.pages.Where(p => p.name == "very_simple").Single();
+        var table = (ProductionTable)page.content;
+        var gen = new RowGenerator(table.recipes[0]);
+        var bp = new BlueprintString() { blueprint = gen.GenerateRow() };
+        Console.WriteLine(bp.ToJson());
+        Console.WriteLine(bp.ToBpString());
 
         
     }

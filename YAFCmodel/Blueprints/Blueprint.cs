@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using YAFC.Model;
@@ -13,13 +14,13 @@ namespace YAFC.Blueprints
     public class BlueprintString
     {
         public Blueprint blueprint { get; set; } = new Blueprint();
-        private static readonly byte[] header = {0x78, 0xDA};
+        private static readonly byte[] header = { 0x78, 0xDA };
 
         public string ToBpString()
         {
             if (InputSystem.Instance.control)
                 return ToJson();
-            var sourceBytes = JsonSerializer.SerializeToUtf8Bytes(this, new JsonSerializerOptions {DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull});
+            var sourceBytes = JsonSerializer.SerializeToUtf8Bytes(this, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
             using var memory = new MemoryStream();
             memory.Write(header);
             using (var compress = new DeflateStream(memory, CompressionLevel.Optimal, true))
@@ -41,7 +42,7 @@ namespace YAFC.Blueprints
             Array.Reverse(intBytes);
             return intBytes;
         }
-        
+
         public string ToJson()
         {
             var sourceBytes = JsonSerializer.SerializeToUtf8Bytes(this, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
@@ -64,22 +65,33 @@ namespace YAFC.Blueprints
             return JsonSerializer.Deserialize<BlueprintString>(decompress, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
         }
     }
-    
+
     [Serializable]
-    public class Blueprint
+    public partial class Blueprint
     {
         public const long VERSION = 0x01000000;
 
         public string item { get; set; } = "blueprint";
+        public string description { get; set; } = null;
         public string label { get; set; }
         public List<BlueprintEntity> entities { get; set; } = new List<BlueprintEntity>();
         public List<BlueprintIcon> icons { get; set; } = new List<BlueprintIcon>();
         public long version { get; set; } = VERSION;
+        public static Blueprint Translate(Blueprint old, BlueprintPosition translation)
+        {
+            // sledgehammer deppcopy
+            var newBp = JsonSerializer.Deserialize<Blueprint>(JsonSerializer.Serialize(old));
+            foreach (var entity in old.entities)
+            {
+                entity.position = entity.position + translation;
+            }
+            return newBp!;
+        }
     }
 
     [Serializable]
     public class BlueprintIcon
-    {   
+    {
         public int index { get; set; }
         public BlueprintSignal signal { get; set; } = new BlueprintSignal();
     }
@@ -101,7 +113,7 @@ namespace YAFC.Blueprints
             {
                 type = "fluid";
                 name = fluid.originalName;
-            } 
+            }
             else
             {
                 type = "item";
@@ -111,7 +123,7 @@ namespace YAFC.Blueprints
     }
 
     [Serializable]
-    public class BlueprintEntity
+    public record BlueprintEntity
     {
         [JsonPropertyName("entity_number")] public int index { get; set; }
         public string name { get; set; }
@@ -120,9 +132,10 @@ namespace YAFC.Blueprints
         public string recipe { get; set; }
         [JsonPropertyName("control_behavior")] public BlueprintControlBehaviour controlBehavior { get; set; }
         public BlueprintConnection connections { get; set; }
-        [JsonPropertyName("request_filters")] public List<BlueprintRequestFilter> requestFilters { get; set;} = new List<BlueprintRequestFilter>();
+        [JsonPropertyName("request_filters")] public List<BlueprintRequestFilter> requestFilters { get; set; } = new List<BlueprintRequestFilter>();
         public Dictionary<string, int> items { get; set; }
-        public ushort? bar {get;set;}
+        public ushort? bar { get; set; }
+        public List<Filter> filters {get;set;}
 
         public void Connect(BlueprintEntity other, bool red = true, bool secondPort = false, bool targetSecond = false)
         {
@@ -138,8 +151,15 @@ namespace YAFC.Blueprints
                 port = connections.p2 ?? (connections.p2 = new BlueprintConnectionPoint());
             else port = connections.p1 ?? (connections.p1 = new BlueprintConnectionPoint());
             var list = red ? port.red : port.green;
-            list.Add(new BlueprintConnectionData {entityId = other.index, circuitId = targetSecond ? 2 : 1});
+            list.Add(new BlueprintConnectionData { entityId = other.index, circuitId = targetSecond ? 2 : 1 });
         }
+    }
+
+    [Serializable]
+    public class Filter
+    {
+        public int index { get; set; }
+        public string name { get; set; }
     }
 
     [Serializable]
@@ -172,10 +192,25 @@ namespace YAFC.Blueprints
     }
 
     [Serializable]
-    public class BlueprintPosition
+    public record BlueprintPosition
     {
-        public float x { get; set; }
-        public float y { get; set; }
+        public static BlueprintPosition FromXY(double x, double y)
+        {
+            return new BlueprintPosition { x = x, y = y };
+        }
+        //Addition Operator
+        public static BlueprintPosition operator +(BlueprintPosition a, BlueprintPosition b)
+        {
+            return new BlueprintPosition { x = a.x + b.x, y = a.y + b.y };
+        }
+        public static BlueprintPosition operator -(BlueprintPosition a, BlueprintPosition b)
+        {
+            return new BlueprintPosition { x = a.x - b.x, y = a.y - b.y };
+        }
+
+
+        public double x { get; set; }
+        public double y { get; set; }
     }
 
     [Serializable]
@@ -191,4 +226,12 @@ namespace YAFC.Blueprints
         public int index { get; set; }
         public int count { get; set; }
     }
+}
+
+public static class BlueprintDirection
+{
+    public const int DOWN = 4;
+    public const int UP = 0;
+    public const int LEFT = 2;
+    public const int RIGHT = 6;
 }

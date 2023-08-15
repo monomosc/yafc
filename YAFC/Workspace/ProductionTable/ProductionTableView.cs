@@ -5,6 +5,7 @@ using System.Linq;
 using System.Numerics;
 using SDL2;
 using YAFC.Blueprints;
+using YAFC.Blueprints.Generators;
 using YAFC.Model;
 using YAFC.UI;
 
@@ -16,7 +17,13 @@ namespace YAFC
 
         public ProductionTableView()
         {
-            var grid = new DataGrid<RecipeRow>(new RecipePadColumn(this), new RecipeColumn(this), new EntityColumn(this), new IngredientsColumn(this), new ProductsColumn(this), new ModulesColumn(this));
+            var grid = new DataGrid<RecipeRow>(new RecipePadColumn(this),
+                                               new RecipeColumn(this),
+                                               new EntityColumn(this),
+                                               new IngredientsColumn(this),
+                                               new ProductsColumn(this),
+                                               new ModulesColumn(this),
+                                               new ExportToBpColumn(this));
             flatHierarchyBuilder = new FlatHierarchy<RecipeRow, ProductionTable>(grid, BuildSummary, "This is a nested group. You can drag&drop recipes here. Nested groups can have its own linked materials");
         }
 
@@ -243,6 +250,16 @@ namespace YAFC
                 }
 
                 BlueprintUtilities.ExportConstantCombinators(view.projectPage.name, goods);
+            }
+        }
+        private class ExportToBpColumn : ProductionTableDataColumn {
+            public ExportToBpColumn(ProductionTableView view) : base(view, "Export", 5f, 5f, 5f, hasMenu:false) {}
+
+            public override void BuildElement(ImGui gui, RecipeRow recipe) {
+                if (gui.BuildButton("Export to blueprint") && gui.CloseDropdown()) {
+                    var bp = new BlueprintString() { blueprint = new RowGenerator(recipe).GenerateRow() };
+                    SDL.SDL_SetClipboardText(bp.ToBpString());
+                }
             }
         }
 
@@ -1148,6 +1165,23 @@ namespace YAFC
                     var grid = gui.EnterInlineGrid(3f, 1f, elementsPerRow);
                     BuildTableIngredients(gui, table, table, ref grid);
                     grid.Dispose();
+                }
+                using (gui.EnterGroup(new Padding(1f, 0.0f)))
+                {
+                    if (gui.BuildButton("Build Train Station")) {
+                        var items = Project.current.preferences.sourceResources;
+                        var listOfActualItems = new List<Item>();
+                        foreach (var item in items) {
+                            if (item is Item) {
+                                listOfActualItems.Add(item as Item);
+                            } else {
+                                throw new NotImplementedException($"You can only create train stations for Items, not fluids or other things (was type {item.GetType()})");
+                            }
+                        }
+                        var station = new ItemTrainStationGenerator(listOfActualItems).GenerateTrainStation();
+                        var bpString = new BlueprintString { blueprint = station};
+                        SDL.SDL_SetClipboardText(bpString.ToBpString());
+                    }
                 }
                 if (gui.isBuilding)
                     gui.DrawRectangle(gui.lastRect, SchemeColor.Background, RectangleBorder.Thin);

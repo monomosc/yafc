@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using SDL2;
 using YAFC.Model;
 using YAFC.UI;
@@ -70,6 +71,13 @@ namespace YAFC.Blueprints
             }
 
             return ExportBlueprint(blueprint, copyToClipboard);
+        }
+
+        public enum BlueprintAttachDirection {
+            Left,
+            Right,
+            Up,
+            Down
         }
     }
 }

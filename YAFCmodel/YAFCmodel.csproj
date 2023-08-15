@@ -16,5 +16,10 @@
     <ItemGroup>
       <ProjectReference Include="..\YAFCui\YAFCui.csproj" />
     </ItemGroup>
+    <ItemGroup>
+    <Content Include="train_station_blueprint_base.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    </ItemGroup>
 
 </Project>

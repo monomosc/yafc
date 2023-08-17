@@ -24,7 +24,7 @@ internal class Program
 
         var items = new [] {"coal"};
 
-        var station = new ItemTrainStationGenerator(Database.items.all.Where(i => items.Contains(i.name)).ToArray()).GenerateTrainStation("coal");
+        var station = new TrainStationGenerator(Database.items.all.Where(i => items.Contains(i.name)).ToArray()).GenerateTrainStation("coal");
         var bp = new BlueprintString() { blueprint = station};
         Console.WriteLine(bp.ToBpString());
         

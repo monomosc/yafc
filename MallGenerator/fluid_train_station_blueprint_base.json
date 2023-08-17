@@ -1,0 +1,645 @@
+{
+    "blueprint": {
+        "item": "blueprint",
+        "description": null,
+        "label": "Fluid Requester",
+        "entities": [
+            {
+                "entity_number": 1,
+                "name": "py-tank-4000",
+                "position": {
+                    "x": -822.5,
+                    "y": 166.5
+                },
+                "direction": 0,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": {
+                    "1": {
+                        "red": [
+                            {
+                                "entity_id": 2,
+                                "circuit_id": 1
+                            },
+                            {
+                                "entity_id": 10,
+                                "circuit_id": 1
+                            }
+                        ],
+                        "green": []
+                    },
+                    "2": null
+                },
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 2,
+                "name": "py-tank-4000",
+                "position": {
+                    "x": -819.5,
+                    "y": 166.5
+                },
+                "direction": 0,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": {
+                    "1": {
+                        "red": [
+                            {
+                                "entity_id": 1,
+                                "circuit_id": 1
+                            },
+                            {
+                                "entity_id": 26,
+                                "circuit_id": 1
+                            }
+                        ],
+                        "green": []
+                    },
+                    "2": null
+                },
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 3,
+                "name": "big-electric-pole",
+                "position": {
+                    "x": -828,
+                    "y": 168
+                },
+                "direction": 0,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": {
+                    "1": {
+                        "red": [
+                            {
+                                "entity_id": 10,
+                                "circuit_id": 1
+                            }
+                        ],
+                        "green": []
+                    },
+                    "2": null
+                },
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 4,
+                "name": "pipe",
+                "position": {
+                    "x": -824.5,
+                    "y": 166.5
+                },
+                "direction": 0,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 5,
+                "name": "pipe-to-ground",
+                "position": {
+                    "x": -824.5,
+                    "y": 167.5
+                },
+                "direction": 0,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 6,
+                "name": "rail-chain-signal",
+                "position": {
+                    "x": -832.5,
+                    "y": 169.5
+                },
+                "direction": 2,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 7,
+                "name": "logistic-train-stop-input",
+                "position": {
+                    "x": -831.5,
+                    "y": 168.5
+                },
+                "direction": 0,
+                "recipe": null,
+                "control_behavior": {
+                    "filters": []
+                },
+                "connections": {
+                    "1": {
+                        "red": [
+                            {
+                                "entity_id": 10,
+                                "circuit_id": 1
+                            }
+                        ],
+                        "green": []
+                    },
+                    "2": null
+                },
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 8,
+                "name": "logistic-train-stop-output",
+                "position": {
+                    "x": -831.5,
+                    "y": 169.5
+                },
+                "direction": 6,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 9,
+                "name": "logistic-train-stop",
+                "position": {
+                    "x": -831,
+                    "y": 169
+                },
+                "direction": 6,
+                "recipe": null,
+                "control_behavior": {
+                    "filters": []
+                },
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": ""
+            },
+            {
+                "entity_number": 10,
+                "name": "constant-combinator",
+                "position": {
+                    "x": -828.5,
+                    "y": 169.5
+                },
+                "direction": 4,
+                "recipe": null,
+                "control_behavior": {
+                    "filters": [
+                        {
+                            "signal": {
+                                "name": "ltn-provider-threshold",
+                                "type": "virtual"
+                            },
+                            "index": 2,
+                            "count": 20000000
+                        },
+                        {
+                            "signal": {
+                                "name": "ltn-min-train-length",
+                                "type": "virtual"
+                            },
+                            "index": 3,
+                            "count": 2
+                        },
+                        {
+                            "signal": {
+                                "name": "ltn-max-trains",
+                                "type": "virtual"
+                            },
+                            "index": 4,
+                            "count": 6
+                        },
+                        {
+                            "signal": {
+                                "name": "ltn-max-train-length",
+                                "type": "virtual"
+                            },
+                            "index": 5,
+                            "count": 3
+                        },
+                        {
+                            "signal": {
+                                "name": "ltn-requester-threshold",
+                                "type": "virtual"
+                            },
+                            "index": 6,
+                            "count": 50000
+                        }
+                    ]
+                },
+                "connections": {
+                    "1": {
+                        "red": [
+                            {
+                                "entity_id": 7,
+                                "circuit_id": 1
+                            },
+                            {
+                                "entity_id": 1,
+                                "circuit_id": 1
+                            },
+                            {
+                                "entity_id": 3,
+                                "circuit_id": 1
+                            }
+                        ],
+                        "green": []
+                    },
+                    "2": null
+                },
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 11,
+                "name": "nexelit-power-pole",
+                "position": {
+                    "x": -821.5,
+                    "y": 168.5
+                },
+                "direction": 0,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 12,
+                "name": "pump",
+                "position": {
+                    "x": -819.5,
+                    "y": 169
+                },
+                "direction": 0,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 13,
+                "name": "rail-signal",
+                "position": {
+                    "x": -817.5,
+                    "y": 169.5
+                },
+                "direction": 2,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 14,
+                "name": "straight-rail",
+                "position": {
+                    "x": -831,
+                    "y": 171
+                },
+                "direction": 2,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 15,
+                "name": "straight-rail",
+                "position": {
+                    "x": -829,
+                    "y": 171
+                },
+                "direction": 2,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 16,
+                "name": "straight-rail",
+                "position": {
+                    "x": -827,
+                    "y": 171
+                },
+                "direction": 2,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 17,
+                "name": "straight-rail",
+                "position": {
+                    "x": -825,
+                    "y": 171
+                },
+                "direction": 2,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 18,
+                "name": "straight-rail",
+                "position": {
+                    "x": -823,
+                    "y": 171
+                },
+                "direction": 2,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 19,
+                "name": "straight-rail",
+                "position": {
+                    "x": -821,
+                    "y": 171
+                },
+                "direction": 2,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 20,
+                "name": "straight-rail",
+                "position": {
+                    "x": -819,
+                    "y": 171
+                },
+                "direction": 2,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 21,
+                "name": "pump",
+                "position": {
+                    "x": -822.5,
+                    "y": 173
+                },
+                "direction": 4,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 22,
+                "name": "nexelit-power-pole",
+                "position": {
+                    "x": -821.5,
+                    "y": 173.5
+                },
+                "direction": 0,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 23,
+                "name": "pipe",
+                "position": {
+                    "x": -824.5,
+                    "y": 175.5
+                },
+                "direction": 0,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 24,
+                "name": "pipe-to-ground",
+                "position": {
+                    "x": -824.5,
+                    "y": 174.5
+                },
+                "direction": 4,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": null,
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 25,
+                "name": "py-tank-4000",
+                "position": {
+                    "x": -822.5,
+                    "y": 175.5
+                },
+                "direction": 0,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": {
+                    "1": {
+                        "red": [
+                            {
+                                "entity_id": 26,
+                                "circuit_id": 1
+                            }
+                        ],
+                        "green": []
+                    },
+                    "2": null
+                },
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            },
+            {
+                "entity_number": 26,
+                "name": "py-tank-4000",
+                "position": {
+                    "x": -819.5,
+                    "y": 175.5
+                },
+                "direction": 0,
+                "recipe": null,
+                "control_behavior": null,
+                "connections": {
+                    "1": {
+                        "red": [
+                            {
+                                "entity_id": 2,
+                                "circuit_id": 1
+                            },
+                            {
+                                "entity_id": 25,
+                                "circuit_id": 1
+                            }
+                        ],
+                        "green": []
+                    },
+                    "2": null
+                },
+                "request_filters": [],
+                "items": null,
+                "bar": null,
+                "filters": null,
+                "type": null,
+                "station": null
+            }
+        ],
+        "icons": [
+            {
+                "index": 1,
+                "signal": {
+                    "name": "rail",
+                    "type": "item"
+                }
+            },
+            {
+                "index": 2,
+                "signal": {
+                    "name": "py-tank-4000",
+                    "type": "item"
+                }
+            },
+            {
+                "index": 3,
+                "signal": {
+                    "name": "pump",
+                    "type": "item"
+                }
+            }
+        ],
+        "version": 281479277445121
+    }
+}

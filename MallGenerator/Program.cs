@@ -20,14 +20,13 @@ internal class Program
             progress,
             errorCollector,
             "en");
+        Project.current = fullProject;
 
-        var page = fullProject.pages.Where(p => p.name == "very_simple").Single();
-        var table = (ProductionTable)page.content;
-        var gen = new RowGenerator(table.recipes[0]);
-        var bp = new BlueprintString() { blueprint = gen.GenerateRow() };
-        Console.WriteLine(bp.ToJson());
+        var items = new [] {"coal"};
+
+        var station = new ItemTrainStationGenerator(Database.items.all.Where(i => items.Contains(i.name)).ToArray()).GenerateTrainStation("coal");
+        var bp = new BlueprintString() { blueprint = station};
         Console.WriteLine(bp.ToBpString());
-
         
     }
 }

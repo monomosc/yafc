@@ -1,0 +1,648 @@
+{
+    "blueprint": {
+        "icons": [
+            {
+                "signal": {
+                    "type": "item",
+                    "name": "py-warehouse-basic"
+                },
+                "index": 1
+            }
+        ],
+        "entities": [
+            {
+                "entity_number": 1,
+                "name": "py-warehouse-basic",
+                "position": {
+                    "x": -591,
+                    "y": 1518
+                },
+                "connections": {
+                    "1": {
+                        "red": [
+                            {
+                                "entity_id": 22
+                            },
+                            {
+                                "entity_id": 42
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "entity_number": 2,
+                "name": "fast-loader",
+                "position": {
+                    "x": -587,
+                    "y": 1515.5
+                },
+                "direction": 2,
+                "type": "output",
+                "filters": [
+                    {
+                        "index": 1,
+                        "name": "molybdenum-plate"
+                    }
+                ]
+            },
+            {
+                "entity_number": 3,
+                "name": "fast-transport-belt",
+                "position": {
+                    "x": -585.5,
+                    "y": 1515.5
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 4,
+                "name": "fast-splitter",
+                "position": {
+                    "x": -584.5,
+                    "y": 1516
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 5,
+                "name": "fast-transport-belt",
+                "position": {
+                    "x": -585.5,
+                    "y": 1516.5
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 6,
+                "name": "fast-underground-belt",
+                "position": {
+                    "x": -585.5,
+                    "y": 1517.5
+                },
+                "type": "output"
+            },
+            {
+                "entity_number": 7,
+                "name": "fast-transport-belt",
+                "position": {
+                    "x": -583.5,
+                    "y": 1516.5
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 8,
+                "name": "big-electric-pole",
+                "position": {
+                    "x": -598,
+                    "y": 1519
+                },
+                "connections": {
+                    "1": {
+                        "red": [
+                            {
+                                "entity_id": 22
+                            }
+                        ]
+                    }
+                },
+                "neighbours": [
+                    39
+                ]
+            },
+            {
+                "entity_number": 9,
+                "name": "fast-loader",
+                "position": {
+                    "x": -587,
+                    "y": 1518.5
+                },
+                "direction": 2,
+                "type": "output",
+                "filters": [
+                    {
+                        "index": 1,
+                        "name": "niobium-plate"
+                    }
+                ]
+            },
+            {
+                "entity_number": 10,
+                "name": "fast-transport-belt",
+                "position": {
+                    "x": -585.5,
+                    "y": 1518.5
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 11,
+                "name": "fast-transport-belt",
+                "position": {
+                    "x": -584.5,
+                    "y": 1518.5
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 12,
+                "name": "fast-transport-belt",
+                "position": {
+                    "x": -584.5,
+                    "y": 1519.5
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 13,
+                "name": "fast-splitter",
+                "position": {
+                    "x": -583.5,
+                    "y": 1519
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 14,
+                "name": "fast-transport-belt",
+                "position": {
+                    "x": -582.5,
+                    "y": 1518.5
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 15,
+                "name": "fast-transport-belt",
+                "position": {
+                    "x": -582.5,
+                    "y": 1519.5
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 16,
+                "name": "fast-transport-belt",
+                "position": {
+                    "x": -581.5,
+                    "y": 1518.5
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 17,
+                "name": "fast-transport-belt",
+                "position": {
+                    "x": -581.5,
+                    "y": 1519.5
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 18,
+                "name": "rail-chain-signal",
+                "position": {
+                    "x": -602.5,
+                    "y": 1521.5
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 19,
+                "name": "logistic-train-stop-input",
+                "position": {
+                    "x": -601.5,
+                    "y": 1520.5
+                },
+                "control_behavior": {
+                    "circuit_condition": {
+                        "first_signal": {
+                            "type": "virtual",
+                            "name": "signal-anything"
+                        },
+                        "constant": 0,
+                        "comparator": ">"
+                    },
+                    "use_colors": true
+                },
+                "connections": {
+                    "1": {
+                        "red": [
+                            {
+                                "entity_id": 22
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "entity_number": 20,
+                "name": "logistic-train-stop-output",
+                "position": {
+                    "x": -601.5,
+                    "y": 1521.5
+                },
+                "direction": 6
+            },
+            {
+                "entity_number": 21,
+                "name": "logistic-train-stop",
+                "position": {
+                    "x": -601,
+                    "y": 1521
+                },
+                "direction": 6,
+                "control_behavior": {
+                    "read_from_train": true,
+                    "train_stopped_signal": {
+                        "type": "virtual",
+                        "name": "signal-T"
+                    }
+                },
+                "station": ""
+            },
+            {
+                "entity_number": 22,
+                "name": "constant-combinator",
+                "position": {
+                    "x": -598.5,
+                    "y": 1521.5
+                },
+                "direction": 4,
+                "control_behavior": {
+                    "filters": [
+                        {
+                            "signal": {
+                                "type": "virtual",
+                                "name": "ltn-provider-threshold"
+                            },
+                            "count": 20000000,
+                            "index": 1
+                        },
+                        {
+                            "signal": {
+                                "type": "virtual",
+                                "name": "ltn-min-train-length"
+                            },
+                            "count": 2,
+                            "index": 2
+                        },
+                        {
+                            "signal": {
+                                "type": "virtual",
+                                "name": "ltn-max-trains"
+                            },
+                            "count": 2,
+                            "index": 3
+                        },
+                        {
+                            "signal": {
+                                "type": "virtual",
+                                "name": "ltn-max-train-length"
+                            },
+                            "count": 3,
+                            "index": 4
+                        },
+                        {
+                            "signal": {
+                                "type": "virtual",
+                                "name": "ltn-requester-stack-threshold"
+                            },
+                            "count": 40,
+                            "index": 5
+                        }
+                    ]
+                },
+                "connections": {
+                    "1": {
+                        "red": [
+                            {
+                                "entity_id": 1
+                            },
+                            {
+                                "entity_id": 19
+                            },
+                            {
+                                "entity_id": 8
+                            },
+                            {
+                                "entity_id": 23
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "entity_number": 23,
+                "name": "nexelit-power-pole",
+                "position": {
+                    "x": -594.5,
+                    "y": 1520.5
+                },
+                "connections": {
+                    "1": {
+                        "red": [
+                            {
+                                "entity_id": 22
+                            }
+                        ]
+                    }
+                },
+                "neighbours": [
+                    39
+                ]
+            },
+            {
+                "entity_number": 24,
+                "name": "stack-inserter",
+                "position": {
+                    "x": -593.5,
+                    "y": 1521.5
+                },
+                "direction": 4
+            },
+            {
+                "entity_number": 25,
+                "name": "stack-inserter",
+                "position": {
+                    "x": -592.5,
+                    "y": 1521.5
+                },
+                "direction": 4
+            },
+            {
+                "entity_number": 26,
+                "name": "stack-inserter",
+                "position": {
+                    "x": -591.5,
+                    "y": 1521.5
+                },
+                "direction": 4
+            },
+            {
+                "entity_number": 27,
+                "name": "stack-inserter",
+                "position": {
+                    "x": -590.5,
+                    "y": 1521.5
+                },
+                "direction": 4
+            },
+            {
+                "entity_number": 28,
+                "name": "stack-inserter",
+                "position": {
+                    "x": -588.5,
+                    "y": 1521.5
+                },
+                "direction": 4
+            },
+            {
+                "entity_number": 29,
+                "name": "stack-inserter",
+                "position": {
+                    "x": -589.5,
+                    "y": 1521.5
+                },
+                "direction": 4
+            },
+            {
+                "entity_number": 30,
+                "name": "rail-signal",
+                "position": {
+                    "x": -587.5,
+                    "y": 1521.5
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 31,
+                "name": "fast-underground-belt",
+                "position": {
+                    "x": -584.5,
+                    "y": 1520.5
+                },
+                "type": "output"
+            },
+            {
+                "entity_number": 32,
+                "name": "straight-rail",
+                "position": {
+                    "x": -601,
+                    "y": 1523
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 33,
+                "name": "straight-rail",
+                "position": {
+                    "x": -599,
+                    "y": 1523
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 34,
+                "name": "straight-rail",
+                "position": {
+                    "x": -597,
+                    "y": 1523
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 35,
+                "name": "straight-rail",
+                "position": {
+                    "x": -595,
+                    "y": 1523
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 36,
+                "name": "straight-rail",
+                "position": {
+                    "x": -593,
+                    "y": 1523
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 37,
+                "name": "straight-rail",
+                "position": {
+                    "x": -591,
+                    "y": 1523
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 38,
+                "name": "straight-rail",
+                "position": {
+                    "x": -589,
+                    "y": 1523
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 39,
+                "name": "nexelit-power-pole",
+                "position": {
+                    "x": -594.5,
+                    "y": 1525.5
+                },
+                "neighbours": [
+                    8,
+                    23
+                ]
+            },
+            {
+                "entity_number": 40,
+                "name": "stack-inserter",
+                "position": {
+                    "x": -593.5,
+                    "y": 1524.5
+                }
+            },
+            {
+                "entity_number": 41,
+                "name": "stack-inserter",
+                "position": {
+                    "x": -592.5,
+                    "y": 1524.5
+                }
+            },
+            {
+                "entity_number": 42,
+                "name": "py-warehouse-basic",
+                "position": {
+                    "x": -591,
+                    "y": 1528
+                },
+                "connections": {
+                    "1": {
+                        "red": [
+                            {
+                                "entity_id": 1
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "entity_number": 43,
+                "name": "stack-inserter",
+                "position": {
+                    "x": -590.5,
+                    "y": 1524.5
+                }
+            },
+            {
+                "entity_number": 44,
+                "name": "stack-inserter",
+                "position": {
+                    "x": -591.5,
+                    "y": 1524.5
+                }
+            },
+            {
+                "entity_number": 45,
+                "name": "stack-inserter",
+                "position": {
+                    "x": -589.5,
+                    "y": 1524.5
+                }
+            },
+            {
+                "entity_number": 46,
+                "name": "stack-inserter",
+                "position": {
+                    "x": -588.5,
+                    "y": 1524.5
+                }
+            },
+            {
+                "entity_number": 47,
+                "name": "fast-underground-belt",
+                "position": {
+                    "x": -584.5,
+                    "y": 1525.5
+                },
+                "type": "input"
+            },
+            {
+                "entity_number": 48,
+                "name": "fast-loader",
+                "position": {
+                    "x": -587,
+                    "y": 1526.5
+                },
+                "direction": 2,
+                "type": "output",
+                "filters": [
+                    {
+                        "index": 1,
+                        "name": "niobium-plate"
+                    }
+                ]
+            },
+            {
+                "entity_number": 49,
+                "name": "fast-transport-belt",
+                "position": {
+                    "x": -585.5,
+                    "y": 1526.5
+                },
+                "direction": 2
+            },
+            {
+                "entity_number": 50,
+                "name": "fast-transport-belt",
+                "position": {
+                    "x": -584.5,
+                    "y": 1526.5
+                }
+            },
+            {
+                "entity_number": 51,
+                "name": "fast-loader",
+                "position": {
+                    "x": -587,
+                    "y": 1529.5
+                },
+                "direction": 2,
+                "type": "output",
+                "filters": [
+                    {
+                        "index": 1,
+                        "name": "molybdenum-plate"
+                    }
+                ]
+            },
+            {
+                "entity_number": 52,
+                "name": "fast-underground-belt",
+                "position": {
+                    "x": -585.5,
+                    "y": 1528.5
+                },
+                "type": "input"
+            },
+            {
+                "entity_number": 53,
+                "name": "fast-transport-belt",
+                "position": {
+                    "x": -585.5,
+                    "y": 1529.5
+                }
+            }
+        ],
+        "item": "blueprint",
+        "label": "base for auto_gen",
+        "version": 281479277445121
+    }
+}

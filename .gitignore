@@ -9,3 +9,4 @@ Build/
 *DotSettings.user
 .vs
 publish/
+MallGenerator/factorio_conf.json

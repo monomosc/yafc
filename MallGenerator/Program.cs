@@ -10,19 +10,21 @@ internal class Program
        private static void Main(string[] args)
     {
 
+        var settings_file = File.ReadAllBytes("factorio_conf.json");
+        var settings = JsonSerializer.Deserialize<IDictionary<string, string>>(settings_file)!;
         var progress = new Progress<(string, string)>();
         var errorCollector = new YAFC.Model.ErrorCollector();
         Project fullProject = YAFC.Parser.FactorioDataSource.Parse(
-            @"C:\Program Files (x86)\Steam/steamApps\common\Factorio\data",
-            @"C:\Users\Hoang\AppData\Roaming\Factorio\mods",
-            @"C:\monomo\pyno.yafc",
+            settings["factorio_data"],
+            settings["mod_folder"],
+            settings["project_file"],
             false,
             progress,
             errorCollector,
             "en");
         Project.current = fullProject;
 
-        var items = new [] {"coal"};
+        var items = new [] {"coal", "coke"};
 
         var station = new TrainStationGenerator(Database.items.all.Where(i => items.Contains(i.name)).ToArray()).GenerateTrainStation("coal");
         var bp = new BlueprintString() { blueprint = station};

@@ -1,0 +1,5 @@
+{
+    "mod_folder" : "your_mod_folder_name",
+    "project_file" : "your_project_file_name",
+    "factorio_data" : "factorio_data_folder_path"   
+}

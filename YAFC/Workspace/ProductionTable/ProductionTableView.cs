@@ -1188,11 +1188,11 @@ namespace YAFC
                             else
                             {
                                 throw new NotImplementedException($"Illegal Item type, item (was type {item.GetType()})");
-                            }
-                            var station = new TrainStationGenerator(listOfActualItems).GenerateTrainStation(this.projectPage.name);
-                            var bpString = new BlueprintString { blueprint = station };
-                            SDL.SDL_SetClipboardText(bpString.ToBpString());
+                            } 
                         }
+                        var station = new TrainStationGenerator(listOfActualItems).GenerateTrainStation(this.projectPage.name);
+                        var bpString = new BlueprintString { blueprint = station };
+                        SDL.SDL_SetClipboardText(bpString.ToBpString());
                     }
                     if (gui.isBuilding)
                         gui.DrawRectangle(gui.lastRect, SchemeColor.Background, RectangleBorder.Thin);

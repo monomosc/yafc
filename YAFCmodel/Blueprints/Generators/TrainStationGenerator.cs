@@ -66,6 +66,7 @@ public class TrainStationGenerator
                 throw new InvalidOperationException("Unknown Origin Blueprint State");
             }
         }
+        return bp;
     }
     private static Blueprint GenerateFluidTrainStation(Fluid fluid, string requesterFor)
     {

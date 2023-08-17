@@ -14,7 +14,7 @@ internal class Program
         var errorCollector = new YAFC.Model.ErrorCollector();
         Project fullProject = YAFC.Parser.FactorioDataSource.Parse(
             @"C:\Program Files (x86)\Steam/steamApps\common\Factorio\data",
-            @"C:\Users\morit\AppData\Roaming\Factorio\mods",
+            @"C:\Users\Hoang\AppData\Roaming\Factorio\mods",
             @"C:\monomo\pyno.yafc",
             false,
             progress,

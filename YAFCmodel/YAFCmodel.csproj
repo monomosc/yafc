@@ -20,6 +20,9 @@
     <Content Include="train_station_blueprint_base.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+        <Content Include="fluid_train_station_blueprint_base.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     </ItemGroup>
 
 </Project>

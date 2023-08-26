@@ -9,7 +9,6 @@ internal class Program
 {
        private static void Main(string[] args)
     {
-
         var settings_file = File.ReadAllBytes("factorio_conf.json");
         var settings = JsonSerializer.Deserialize<IDictionary<string, string>>(settings_file)!;
         var progress = new Progress<(string, string)>();

@@ -16,38 +16,68 @@ public class TrainStationGenerator
 {
 
     public IList<Goods> Goods { get; init; }
-
+    private static Dictionary<int, string> trainBaseBps = new Dictionary<int, string>()
+    {
+        {1, "1Item_train_station_base.json"},
+        {2, "2Items_train_station_base.json"},
+        {3, "3Items_train_station_base.json"},
+        {4, "4Items_train_station_base.json"},
+        {5, "5Items_train_station_base.json"},
+        {6, "6Items_train_station_base.json"}
+    };
     public TrainStationGenerator(IEnumerable<Goods> goods)
     {
         this.Goods = goods.ToList();
     }
     private static Blueprint GenerateItemTrainStation(IList<Item> items, string requesterFor)
     {
-        var file = File.ReadAllBytes("train_station_blueprint_base.json");
+        var file = File.ReadAllBytes(trainBaseBps[items.Count]);
         var bps = JsonSerializer.Deserialize<BlueprintString>(file);
         var bp = bps.blueprint;
         var request_combinator = bp.entities.Where(e => e.name == "constant-combinator").Single();
-        
+
         var loaders = bp.entities.Where(e => e.name.Contains("loader")).ToList();
-        //loaders 0,3 are request #1, loaders 1,2 are request #2
+
+        initializeLoaders(loaders);
+
+        //loaders 0,11 are request #1, loaders 2,10 are request #2 etc.
 
 
         foreach (var (item, itemIndex) in items.Enumerate())
         {
+
             if (itemIndex > 6)
             {
                 throw new InvalidOperationException("Too many items");
             }
-            if (itemIndex == 0)
+            switch (itemIndex)
             {
-                loaders[0].filters[0].name = item.name;
-                loaders[3].filters[0].name = item.name;
+                case 0:
+                    loaders[0].filters[0].name = item.name;
+                    loaders[1].filters[0].name = item.name;
+                    break;
+                case 1:
+                    loaders[2].filters[0].name = item.name;
+                    loaders[3].filters[0].name = item.name;
+                    break;
+                case 2:
+                    loaders[4].filters[0].name = item.name;
+                    loaders[5].filters[0].name = item.name;
+                    break;
+                case 3:
+                    loaders[6].filters[0].name = item.name;
+                    loaders[7].filters[0].name = item.name;
+                    break;
+                case 4:
+                    loaders[8].filters[0].name = item.name;
+                    loaders[9].filters[0].name = item.name;
+                    break;
+                case 5:
+                    loaders[10].filters[0].name = item.name;
+                    loaders[11].filters[0].name = item.name;
+                    break;
             }
-            if (itemIndex == 1)
-            {
-                loaders[1].filters[0].name = item.name;
-                loaders[2].filters[0].name = item.name;
-            }
+
             if (request_combinator.controlBehavior.filters.Count < 6 + itemIndex)
             {
                 request_combinator.controlBehavior.filters.Add(new BlueprintControlFilter()
@@ -68,9 +98,22 @@ public class TrainStationGenerator
         }
         return bp;
     }
+
+    private static void initializeLoaders(List<BlueprintEntity> loaders)
+    {
+        loaders.ForEach(loader => {
+           loader.filters = new List<Filter>
+           {
+               new Filter() {
+                index = 1
+               }
+           };
+        });
+    }
+
     private static Blueprint GenerateFluidTrainStation(Fluid fluid, string requesterFor)
     {
-        var file = File.ReadAllBytes("fluid_train_station_blueprint_base.json");
+        var file = File.ReadAllBytes("fluid_train_station_base.json");
         var bps = JsonSerializer.Deserialize<BlueprintString>(file);
         var bp = bps.blueprint;
         var request_combinator = bp.entities.Where(e => e.name == "constant-combinator").Single();

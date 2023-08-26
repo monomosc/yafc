@@ -130,9 +130,11 @@ namespace YAFC.Blueprints
         public string name { get; set; }
         public BlueprintPosition position { get; set; } = new BlueprintPosition();
         public int direction { get; set; }
+        public int oritentation { get; set;}
         public string recipe { get; set; }
         [JsonPropertyName("control_behavior")] public BlueprintControlBehaviour controlBehavior { get; set; }
         public BlueprintConnection connections { get; set; }
+        public List<long> neighbours { get; set;}
         [JsonPropertyName("request_filters")] public List<BlueprintRequestFilter> requestFilters { get; set; } = new List<BlueprintRequestFilter>();
         public Dictionary<string, int> items { get; set; }
         public ushort? bar { get; set; }
